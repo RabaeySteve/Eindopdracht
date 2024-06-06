@@ -1,0 +1,15 @@
+﻿<Window x:Class="EindopdrachtPG.WPF.App.BestandInlezenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EindopdrachtPG.WPF.App"
+        mc:Ignorable="d"
+        Title="BestandInlezenWindow" Height="450" Width="800">
+    <Grid>
+        <ComboBox Name="Selector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="10,10,0,0"/>
+        <Button Name="btnReadFile" Content="Lees Bestand" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="10,40,0,0" Click="btnReadFile_Click"/>
+        <TextBox Name="txtFileContent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="480" Height="250" Margin="10,80,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        <Button Name="btnAddFile" Content="Voeg Toe" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="10,340,0,0" Click="btnAddFile_Click"/>
+    </Grid>
+</Window>

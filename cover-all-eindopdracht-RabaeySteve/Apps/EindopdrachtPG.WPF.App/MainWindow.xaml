@@ -1,0 +1,163 @@
+﻿<Window x:Class="EindopdrachtPG.WPF.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EindopdrachtPG.WPF.App"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Eindopdracht Programmeren Gevorderd" Height="680" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="Lijsten" Click="LijstenWindow_Click" />
+                    <MenuItem Header="Klanten" Click="KlantenWindow_Click" />
+                    <MenuItem Header="FileReader" Click="BestandInlezen_Click" />
+                    <Separator />
+                    <MenuItem Header="_Exit" Click="ExitClick" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2" >
+            <TabItem Header="Offerte Aanmaken">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Offerte Aanmaken" FontSize="24" FontWeight="Bold" Foreground="#2c3e50" Margin="10" HorizontalAlignment="Center"/>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="20">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                            <Label Content="Klant:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14" Margin="0,0,10,0"/>
+                            <ComboBox Name="cbKlant" IsEditable="True" FontSize="14" Foreground="#2c3e50" Width="200" HorizontalAlignment="Left" KeyUp="cbKlant_KeyUp" Text="{Binding Path=KlantNaam, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                            <Label Content="Datum:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14" Margin="0,0,10,0"/>
+                            <DatePicker Name="dpDatum" Width="200" FontSize="14"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                            <Label Content="Producten:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14" Margin="0,0,10,0"/>
+                            <ComboBox x:Name="cbProduct" IsEditable="True" Width="200" VerticalAlignment="Center" Margin="0,0,5,0" KeyUp="cbProduct_KeyUp"/>
+                            <TextBox x:Name="tbAantal" Width="50" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <Button Content="+" Width="30" Height="30" VerticalAlignment="Center" Click="AddProductRow_Click" Background="#3498db" Foreground="White" FontSize="16" FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
+                            <Button Content="-" Width="30" Height="30" VerticalAlignment="Center" Click="RemoveProductRow_Click" Background="#3498db" Foreground="White" FontSize="16" FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
+                        </StackPanel>
+
+                        <DataGrid x:Name="ProductDataGrid" AutoGenerateColumns="False" Margin="0,10,0,0" Height="200" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="Auto"/>
+                                <DataGridTextColumn Header="NederlandseNaam" Binding="{Binding NederlandseNaam}" Width="auto"/>
+
+                                <DataGridTextColumn Header="WetenschappelijkeNaam" Binding="{Binding WetenschappelijkeNaam}" Width="auto"/>
+                                <DataGridTextColumn Header="Beschrijving" Binding="{Binding Beschrijving}" Width="*"/>
+                                <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}" Width="Auto"/>
+                                <DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                       
+
+                        <Border BorderBrush="#34495e" BorderThickness="1" Margin="10" Padding="10">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <StackPanel Margin="10">
+                                    <Label Content="Afhalen:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14"/>
+                                    <CheckBox Name="chkAfhalen" VerticalAlignment="Center" FontSize="14"/>
+                                </StackPanel>
+                                <StackPanel Margin="10">
+                                    <Label Content="Leveren:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14"/>
+                                    <CheckBox Name="chkLeveren" VerticalAlignment="Center" FontSize="14"/>
+                                </StackPanel>
+                                <StackPanel Margin="10">
+                                    <Label Content="Aanleggen:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14"/>
+                                    <CheckBox Name="chkAanleg" VerticalAlignment="Center" FontSize="14"/>
+                                </StackPanel>
+                                <StackPanel Margin="10">
+                                    <Button Content="Bereken" Background="#3498db" Foreground="White" Width="60" Height="30" Click="Bereken_Click" />
+                                </StackPanel>
+                                <StackPanel Margin="10">
+                                    <Label Content="Totale Prijs:" VerticalAlignment="Center" Foreground="#34495e" FontSize="14"/>
+                                    <TextBlock Name="tbTotalePrijs" VerticalAlignment="Center" FontSize="14" Foreground="#2c3e50" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Button Content="Offerte Aanmaken" Width="200" Height="40" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center" Click="btnOfferteAanmaken_Click" Background="#3498db" Foreground="White" FontSize="16" FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Offertesbeheer">
+                <StackPanel Margin="20">
+                   
+
+                    <ComboBox Name="zoekOffertes" IsEditable="True" FontSize="14" Foreground="#2c3e50" Width="200" KeyUp="cbKlant_KeyUp"/>
+
+
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                        <Button Content="Zoek op ID" Width="100" Height="30" Margin="5" Click="SearchById_Click"/>
+                        <Button Content="Zoek op Datum" Width="100" Height="30" Margin="5" Click="SearchByDate_Click"/>
+                        <Button Content="Zoek op Naam" Width="100" Height="30" Margin="5" Click="SearchByName_Click"/>
+                    </StackPanel>
+
+                    <Label Content="Resultaten"></Label>
+
+                    <StackPanel Name="ResultsPanel"></StackPanel>
+                   
+                    <DataGrid x:Name="OfferteGrid" AutoGenerateColumns="False" SelectionMode="Single" Margin="10" Height="300">
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Offerte_DoubleClick"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
+                            <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat={}{0:dd-MM-yyyy}}" Width="*"/>
+                            <DataGridTextColumn Header="Klantnummer" Binding="{Binding KlantId}" Width="*"/>
+                            <DataGridTextColumn Header="Prijs" Binding="{Binding TotaalPrijs}" Width="*"/>
+                            <DataGridTemplateColumn Header="Edit">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Edit" Click="EditButton_Click"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Delete">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Delete" Click="DeleteButton_Click"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem>
+                    <TextBlock Name="StatusBarTxt" />
+                </StatusBarItem>
+            </StatusBar>
+        </DockPanel>
+    </Grid>
+</Window>

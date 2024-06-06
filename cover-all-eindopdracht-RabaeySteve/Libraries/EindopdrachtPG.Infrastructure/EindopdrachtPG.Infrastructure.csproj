@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="KlantenRepository\**" />
+    <EmbeddedResource Remove="KlantenRepository\**" />
+    <None Remove="KlantenRepository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Eindopdracht.Domain\Eindopdracht.Domain.csproj" />
+    <ProjectReference Include="..\SQLSupport\Ado.Data.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>
